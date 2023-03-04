@@ -1,3 +1,5 @@
+# K-Nearest-Neighbor by Benjamin Fever
+
 from FileScanner import Scanner
 from math import sqrt, pow
 from collections import OrderedDict
