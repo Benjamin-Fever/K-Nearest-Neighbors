@@ -62,10 +62,45 @@ class K_Nearest_Neighbor:
 
         return neighbors
 
+    def classification(self, neighbors):
+        class1 = class2 = class3 = 0
+        for neighbor_key, neighbor_value in neighbors.items():
+            if int(neighbor_value) == 1:
+                class1 += 1
+            elif int(neighbor_value) == 2:
+                class2 += 1
+            elif int(neighbor_value) == 3:
+                class3 += 1
+        if class1 > class2 and class1 > class3:
+            return 1
+        elif class2 > class1 and class2 > class3:
+            return 2
+        elif class3 > class1 and class3 > class2:
+            return 3
+
+    def testing(self, filepath):
+        test_data = self.read_data_file(filepath)
+        # Normalize data points
+        test_data = self.normalize_data(test_data)
+        
+        classified = []
+        for point in test_data:
+            neighbors = self.find_neighbors(point)
+            classified.append(self.classification(neighbors))
+        print(classified)
+        correct = 0
+        for i in range(0, len(classified)):
+            if (classified[i] == int(test_data[i][13])):
+                correct += 1
+        print("Accuracy: " + str(correct / len(test_data) * 100))
+
 
 if __name__ == "__main__":
+    print("K Value = 3")
     machine_learning = K_Nearest_Neighbor()
-    machine_learning.training("F:\Software Projects\K-Nearest-Neighbors\data\wine-training")
-    test = machine_learning.find_neighbors([13.05, 3.86, 2.32, 22.5, 85.0, 1.65, 1.59, 0.61, 1.62, 4.8, 0.84, 2.01, 515.0])
-    pass
-    # TODO: Check which class is more
+    machine_learning.training(str(argv[1]))
+    machine_learning.testing(str(argv[2]))
+    print("K Value = 1")
+    machine_learning = K_Nearest_Neighbor(5)
+    machine_learning.training(str(argv[1]))
+    machine_learning.testing(str(argv[2]))
