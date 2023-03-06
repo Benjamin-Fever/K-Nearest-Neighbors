@@ -1,6 +1,7 @@
 ### This is a utility class made by Benjamin Fever
 ### It follows the same idea as the java.util.Scanner
 ### Makes it easier to scan through a large file
+import math
 
 class Scanner:
     #  Sets the initial variables
@@ -59,3 +60,25 @@ class Scanner:
     #  Return true if there is a word next, else return false
     def has_next(self):
         return self.position < self.size()
+
+# Calculate the min-max scaling of a given value
+def min_max_scaling(x, min_x, max_x):
+    return ((x - min_x) / (max_x - min_x))
+
+# Calculate the euclidean distance between point1 and point2 sqrt((p1 - p2)^2)
+def euclidean_dist(point1, point2):
+    return math.sqrt((point1 - point2) ** 2)
+
+def find_min(values):
+    min = math.inf
+    for value in values:
+        if (value < min):
+            min = value
+    return min
+
+def find_max(values):
+    max = -math.inf
+    for value in values:
+        if (value > max):
+            max = value
+    return max
